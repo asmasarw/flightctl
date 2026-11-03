@@ -49,6 +49,20 @@ done
 SQL_ARG="--set db.builtin.image.image=${SQL_IMAGE} --set-string db.builtin.image.tag=${SQL_VERSION}"
 KV_ARG="--set kv.image.image=${KV_IMAGE} --set-string kv.image.tag=${KV_VERSION}"
 
+# The default clusterCli image (quay.io/openshift/origin-cli) is only published
+# for linux/amd64. On other host architectures (e.g. arm64 / Apple Silicon) it
+# cannot run natively and crashes under qemu emulation, which breaks the Helm
+# cert-generator / cleanup / wait jobs. On those hosts, build and use a local
+# multi-arch-friendly equivalent (kubectl + openssl + bash + curl, with an "oc"
+# alias) instead.
+CLUSTER_CLI_ARG=""
+CLUSTER_CLI_IMAGE="localhost/flightctl-cluster-cli"
+CLUSTER_CLI_TAG="latest"
+HOST_ARCH="$(uname -m)"
+if [ "$HOST_ARCH" = "arm64" ] || [ "$HOST_ARCH" = "aarch64" ]; then
+  CLUSTER_CLI_ARG="--set clusterCli.image.image=${CLUSTER_CLI_IMAGE} --set-string clusterCli.image.tag=${CLUSTER_CLI_TAG}"
+fi
+
 # Function to check if an image exists and return the appropriate image name (hardcoded to EL9)
 choose_image() {
     local os_image="$1"
@@ -141,6 +155,18 @@ fi
 
 kind_load_image "${SQL_IMAGE}:${SQL_VERSION}" keep-tar
 
+# Build and load the local cluster CLI image when the default origin-cli image
+# is not usable on this host architecture. The cert-generator hook runs on every
+# deploy (including --only-db), so this must happen outside the service-image
+# block above.
+if [ -n "$CLUSTER_CLI_ARG" ]; then
+  echo "Building local cluster CLI image for ${HOST_ARCH} (origin-cli is amd64-only)..."
+  podman build -t "${CLUSTER_CLI_IMAGE}:${CLUSTER_CLI_TAG}" \
+    -f "${SCRIPT_DIR}/cluster-cli-image/Containerfile.cluster-cli" \
+    "${SCRIPT_DIR}/cluster-cli-image"
+  kind_load_image "${CLUSTER_CLI_IMAGE}:${CLUSTER_CLI_TAG}"
+fi
+
 API_PORT=3443
 GATEWAY_ARGS=""
 if [ "$GATEWAY" ]; then
@@ -177,7 +203,7 @@ helm upgrade --install --namespace flightctl-external \
                   --values ./deploy/helm/flightctl/values.dev.yaml \
                   --set global.baseDomain=${BASE_DOMAIN} \
                   ${SECRET_ACCESS_ARGS} \
-                  ${ONLY_DB} ${DB_SIZE_PARAMS} ${AUTH_ARGS} ${SQL_ARG} ${GATEWAY_ARGS} ${KV_ARG} ${SERVICE_IMAGE_ARGS} flightctl \
+                  ${ONLY_DB} ${DB_SIZE_PARAMS} ${AUTH_ARGS} ${SQL_ARG} ${GATEWAY_ARGS} ${KV_ARG} ${CLUSTER_CLI_ARG} ${SERVICE_IMAGE_ARGS} flightctl \
               ./deploy/helm/flightctl/ --kube-context kind-kind
 
 "${SCRIPT_DIR}"/wait_for_postgres.sh

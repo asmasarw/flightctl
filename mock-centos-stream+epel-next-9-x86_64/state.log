@@ -1,0 +1,46 @@
+2026-11-02 14:55:52,635 - Mock Version: 6.8
+2026-11-02 14:55:52,636 - Start(bootstrap): chroot init
+2026-11-02 14:55:52,643 - Start(bootstrap): unpacking root cache
+2026-11-02 14:55:53,132 - Finish(bootstrap): unpacking root cache
+2026-11-02 14:55:53,133 - Start(bootstrap): cleaning package manager metadata
+2026-11-02 14:55:53,133 - Finish(bootstrap): cleaning package manager metadata
+2026-11-02 14:55:53,234 - Finish(bootstrap): chroot init
+2026-11-02 14:55:53,234 - Start: chroot init
+2026-11-02 14:55:53,239 - Start: unpacking root cache
+2026-11-02 14:55:53,884 - Finish: unpacking root cache
+2026-11-02 14:55:53,885 - Start: cleaning package manager metadata
+2026-11-02 14:55:53,886 - Finish: cleaning package manager metadata
+2026-11-02 14:55:53,987 - Start: installing minimal buildroot with dnf
+2026-11-02 14:55:54,470 - Finish: installing minimal buildroot with dnf
+2026-11-02 14:55:54,502 - Finish: chroot init
+2026-11-02 14:55:54,502 - Start: build phase for flightctl-767ac0e22-1.20261102145551970680.main.6.g767ac0e2.fc43.src.rpm
+2026-11-02 14:55:54,502 - Start: build setup for flightctl-767ac0e22-1.20261102145551970680.main.6.g767ac0e2.fc43.src.rpm
+2026-11-02 14:57:30,140 - Finish: build setup for flightctl-767ac0e22-1.20261102145551970680.main.6.g767ac0e2.fc43.src.rpm
+2026-11-02 14:57:30,140 - Start: rpmbuild flightctl-767ac0e22-1.20261102145551970680.main.6.g767ac0e2.fc43.src.rpm
+2026-11-02 14:57:30,141 - Start: Outputting list of installed packages
+2026-11-02 14:57:30,201 - Finish: Outputting list of installed packages
+2026-11-02 14:57:54,688 - Finish: rpmbuild flightctl-767ac0e22-1.20261102145551970680.main.6.g767ac0e2.fc43.src.rpm
+2026-11-02 14:57:54,688 - Finish: build phase for flightctl-767ac0e22-1.20261102145551970680.main.6.g767ac0e2.fc43.src.rpm
+2026-11-02 14:57:54,688 - Start: clean chroot
+2026-11-02 14:57:54,825 - Finish: clean chroot
+2026-11-03 21:00:39,237 - Mock Version: 6.9
+2026-11-03 21:00:39,263 - Start(bootstrap): chroot init
+2026-11-03 21:00:39,362 - Start(bootstrap): unpacking root cache
+2026-11-03 21:00:41,628 - Finish(bootstrap): unpacking root cache
+2026-11-03 21:00:41,649 - Start(bootstrap): cleaning package manager metadata
+2026-11-03 21:00:41,650 - Finish(bootstrap): cleaning package manager metadata
+2026-11-03 21:00:43,310 - Finish(bootstrap): chroot init
+2026-11-03 21:00:43,317 - Start: chroot init
+2026-11-03 21:00:43,423 - Start: unpacking root cache
+2026-11-03 21:00:46,626 - Finish: unpacking root cache
+2026-11-03 21:00:46,646 - Start: cleaning package manager metadata
+2026-11-03 21:00:46,654 - Finish: cleaning package manager metadata
+2026-11-03 21:00:48,366 - Start: installing minimal buildroot with dnf
+2026-11-03 21:00:54,537 - Finish: installing minimal buildroot with dnf
+2026-11-03 21:00:55,162 - Finish: chroot init
+2026-11-03 21:00:55,163 - Start: build phase for flightctl-767ac0e22-1.20261103210027817471.arm64.agent.vm.harness.6.g767ac0e2.fc44.src.rpm
+2026-11-03 21:00:55,163 - Start: build setup for flightctl-767ac0e22-1.20261103210027817471.arm64.agent.vm.harness.6.g767ac0e2.fc44.src.rpm
+2026-11-03 21:03:32,352 - Finish: build setup for flightctl-767ac0e22-1.20261103210027817471.arm64.agent.vm.harness.6.g767ac0e2.fc44.src.rpm
+2026-11-03 21:03:32,352 - Start: rpmbuild flightctl-767ac0e22-1.20261103210027817471.arm64.agent.vm.harness.6.g767ac0e2.fc44.src.rpm
+2026-11-03 21:03:32,355 - Start: Outputting list of installed packages
+2026-11-03 21:03:33,162 - Finish: Outputting list of installed packages

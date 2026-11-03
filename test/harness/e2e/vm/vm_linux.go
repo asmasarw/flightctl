@@ -308,7 +308,7 @@ func (v *VMInLibvirt) EnsureConsoleStream() error {
 }
 
 func (v *VMInLibvirt) parseDomainTemplate() (domainXML string, err error) {
-	tmpl, err := template.New("domain-template").Parse(domainTemplate)
+	tmpl, err := template.New("domain-template").Parse(selectDomainTemplate())
 	if err != nil {
 		return "", fmt.Errorf("unable to parse domain template: %w", err)
 	}
@@ -338,6 +338,9 @@ func (v *VMInLibvirt) parseDomainTemplate() (domainXML string, err error) {
 		memoryMiB = 2048
 	}
 
+	// Keep model='tpm-tis' for all arches: it is the only value libvirt's schema
+	// accepts, and libvirt maps it to the arch-appropriate QEMU device
+	// (tpm-tis on x86, tpm-tis-device on the aarch64 'virt' machine).
 	tpmConfig := `<tpm model='tpm-tis'>
       <backend type='emulator' version='2.0'>
         <active_pcr_banks>

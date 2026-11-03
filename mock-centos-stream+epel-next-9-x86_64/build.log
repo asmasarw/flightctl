@@ -1,0 +1,85 @@
+Mock Version: 6.9
+Executing command: ['bash', '--login', '-c', '/usr/bin/rpmbuild -bs --noclean --target x86_64 --nodeps /builddir/build/SPECS/flightctl.spec'] with env {'TERM': 'vt100', 'SHELL': '/bin/bash', 'HOME': '/builddir', 'HOSTNAME': 'mock', 'PATH': '/opt/certified-go/bin:/usr/bin:/bin:/usr/sbin:/sbin', 'PROMPT_COMMAND': 'printf "\\033]0;<mock-chroot>\\007"', 'PS1': '<mock-chroot> \\s-\\v\\$ ', 'LANG': 'C.UTF-8', 'GOCACHE': '/builddir/.cache/go-build', 'GOMODCACHE': '/builddir/go/pkg/mod', 'GOROOT': '/opt/certified-go', 'GOTOOLCHAIN': 'local'} and shell False
+Building target platforms: x86_64
+Building for target x86_64
+setting SOURCE_DATE_EPOCH=1793664000
+Wrote: /builddir/build/SRPMS/flightctl-767ac0e22-1.20261103210027817471.arm64.agent.vm.harness.6.g767ac0e2.el9.src.rpm
+Child return code was: 0
+Executing command: ['bash', '--login', '-c', '/usr/bin/rpmbuild -bs --noclean --target x86_64 --nodeps /builddir/build/SPECS/flightctl.spec'] with env {'TERM': 'vt100', 'SHELL': '/bin/bash', 'HOME': '/builddir', 'HOSTNAME': 'mock', 'PATH': '/opt/certified-go/bin:/usr/bin:/bin:/usr/sbin:/sbin', 'PROMPT_COMMAND': 'printf "\\033]0;<mock-chroot>\\007"', 'PS1': '<mock-chroot> \\s-\\v\\$ ', 'LANG': 'C.UTF-8', 'GOCACHE': '/builddir/.cache/go-build', 'GOMODCACHE': '/builddir/go/pkg/mod', 'GOROOT': '/opt/certified-go', 'GOTOOLCHAIN': 'local'} and shell False
+Building target platforms: x86_64
+Building for target x86_64
+setting SOURCE_DATE_EPOCH=1793664000
+Wrote: /builddir/build/SRPMS/flightctl-767ac0e22-1.20261103210027817471.arm64.agent.vm.harness.6.g767ac0e2.el9.src.rpm
+Child return code was: 0
+Executing command: ['bash', '--login', '-c', '/usr/bin/rpmbuild -bb --noclean --target x86_64 --nodeps /builddir/build/SPECS/flightctl.spec'] with env {'TERM': 'vt100', 'SHELL': '/bin/bash', 'HOME': '/builddir', 'HOSTNAME': 'mock', 'PATH': '/opt/certified-go/bin:/usr/bin:/bin:/usr/sbin:/sbin', 'PROMPT_COMMAND': 'printf "\\033]0;<mock-chroot>\\007"', 'PS1': '<mock-chroot> \\s-\\v\\$ ', 'LANG': 'C.UTF-8', 'GOCACHE': '/builddir/.cache/go-build', 'GOMODCACHE': '/builddir/go/pkg/mod', 'GOROOT': '/opt/certified-go', 'GOTOOLCHAIN': 'local'} and shell False
+Building target platforms: x86_64
+Building for target x86_64
+setting SOURCE_DATE_EPOCH=1793664000
+Executing(%prep): /bin/sh -e /var/tmp/rpm-tmp.AAZDwX
++ umask 022
++ cd /builddir/build/BUILD
++ cd /builddir/build/BUILD
++ rm -rf flightctl-767ac0e22
++ /usr/bin/gzip -dc /builddir/build/SOURCES/flightctl-767ac0e22.tar.gz
++ /usr/bin/tar -xof -
++ STATUS=0
++ '[' 0 -ne 0 ']'
++ cd flightctl-767ac0e22
++ /usr/bin/chmod -Rf a+rX,u+w,g-w,o-w .
++ rm -fr /builddir/build/BUILD/flightctl-767ac0e22/vendor
++ [[ ! -e /builddir/build/BUILD/flightctl-767ac0e22/_build/bin ]]
++ install -m 0755 -vd /builddir/build/BUILD/flightctl-767ac0e22/_build/bin
+/usr/bin/install: creating directory '/builddir/build/BUILD/flightctl-767ac0e22/_build'
+/usr/bin/install: creating directory '/builddir/build/BUILD/flightctl-767ac0e22/_build/bin'
++ export GOPATH=/builddir/build/BUILD/flightctl-767ac0e22/_build:/usr/share/gocode
++ GOPATH=/builddir/build/BUILD/flightctl-767ac0e22/_build:/usr/share/gocode
++ [[ ! -e /builddir/build/BUILD/flightctl-767ac0e22/_build/src/github.com/flightctl/flightctl ]]
+++ dirname /builddir/build/BUILD/flightctl-767ac0e22/_build/src/github.com/flightctl/flightctl
++ install -m 0755 -vd /builddir/build/BUILD/flightctl-767ac0e22/_build/src/github.com/flightctl
+/usr/bin/install: creating directory '/builddir/build/BUILD/flightctl-767ac0e22/_build/src'
+/usr/bin/install: creating directory '/builddir/build/BUILD/flightctl-767ac0e22/_build/src/github.com'
+/usr/bin/install: creating directory '/builddir/build/BUILD/flightctl-767ac0e22/_build/src/github.com/flightctl'
++ ln -fs /builddir/build/BUILD/flightctl-767ac0e22 /builddir/build/BUILD/flightctl-767ac0e22/_build/src/github.com/flightctl/flightctl
++ cd /builddir/build/BUILD/flightctl-767ac0e22/_build/src/github.com/flightctl/flightctl
++ cd /builddir/build/BUILD
++ rm -rf flightctl-767ac0e22
++ /usr/bin/gzip -dc /builddir/build/SOURCES/flightctl-767ac0e22.tar.gz
++ /usr/bin/tar -xof -
++ STATUS=0
++ '[' 0 -ne 0 ']'
++ cd flightctl-767ac0e22
++ /usr/bin/chmod -Rf a+rX,u+w,g-w,o-w .
++ RPM_EC=0
+++ jobs -p
++ exit 0
+Executing(%build): /bin/sh -e /var/tmp/rpm-tmp.apH0Io
++ umask 022
++ cd /builddir/build/BUILD
++ cd flightctl-767ac0e22
+++ go env GOROOT
++ GOENVFILE=/opt/certified-go/go.env
++ [[ ! -f /opt/certified-go/go.env ]]
++++ ./hack/current-version
++++ true
+++ tag=
+++ '[' -z '' ']'
++++ echo v767ac0e22
++++ tr '~' -
+++ tag=v767ac0e22
+++ echo v767ac0e22
++ SOURCE_GIT_TAG=v767ac0e22
++ SOURCE_GIT_TREE_STATE=clean
++++ git rev-parse HEAD
++++ cut -c1-9
++++ true
+++ commit=
+++ '[' -z '' ']'
++++ grep -v '^\$Format' packaging/rpm/git-metadata
++++ tr -d '[:space:]'
+++ commit=767ac0e22bd40ed7e60519c0908956bf4d839bb9
+++ '[' -z 767ac0e22bd40ed7e60519c0908956bf4d839bb9 ']'
+++ cut -c1-9
+++ echo 767ac0e22bd40ed7e60519c0908956bf4d839bb9
++ SOURCE_GIT_COMMIT=767ac0e22
++ /usr/bin/make -O -j8 V=1 VERBOSE=1 build-cli build-agent build-backup build-restore build-standalone build-mirror-images
+mkdir -p bin

@@ -1,0 +1,20 @@
+# Local dev-only "cluster CLI" image for kind deploys on architectures where
+# the default quay.io/openshift/origin-cli image is unavailable (it is built
+# for linux/amd64 only, so it cannot run natively on arm64 and crashes under
+# qemu emulation).
+#
+# The Helm chart's clusterCli image is used by cert generation, the ca-bundle
+# creator, cleanup/pre-upgrade jobs and the migration/api wait init containers.
+# Those need: openssl, kubectl (or oc), bash and curl. alpine/k8s is multi-arch
+# and already ships kubectl, bash and curl; we add openssl and expose an "oc"
+# alias so the oc-based jobs keep working.
+ARG ALPINE_K8S_VERSION=1.31.1
+FROM docker.io/alpine/k8s:${ALPINE_K8S_VERSION}
+
+RUN apk add --no-cache openssl \
+    && ln -sf "$(command -v kubectl)" /usr/local/bin/oc
+
+# Sanity check that every binary the Helm jobs rely on is present.
+RUN for bin in bash kubectl oc openssl curl; do \
+        command -v "$bin" >/dev/null || { echo "missing required binary: $bin" >&2; exit 1; }; \
+    done

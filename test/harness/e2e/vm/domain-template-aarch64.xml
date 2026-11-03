@@ -1,0 +1,61 @@
+<domain type="kvm" xmlns:qemu="http://libvirt.org/schemas/domain/qemu/1.0">
+  <name>{{.Name}}</name>
+  <memory unit="MiB">{{.MemoryMiB}}</memory>
+  <memoryBacking>
+    <source type="memfd"/>
+    <access mode="shared"/>
+  </memoryBacking>
+  <vcpu>2</vcpu>
+  <features>
+    <acpi></acpi>
+    <gic version='3'/>
+  </features>
+  <!-- aarch64 'virt' machine: pass through the host CPU under KVM. The x86-only
+       Haswell model and vmx/svm features do not apply here. -->
+  <cpu mode='host-passthrough' check='none'/>
+  <on_poweroff>destroy</on_poweroff>
+  <on_reboot>restart</on_reboot>
+  <on_crash>destroy</on_crash>
+  <!-- firmware='efi' lets libvirt auto-select AAVMF (edk2-aarch64). Secure-boot
+       is intentionally NOT requested here: ARM SB + unsigned bootc images is a
+       known boot-blocker; enable it later once plain boot is confirmed. -->
+  <os firmware='efi'>
+    <type arch='aarch64' machine='virt'>hvm</type>
+    <boot dev='hd'/>
+  </os>
+  <devices>
+    <!-- aarch64 'virt' has no ISA bus; use the pl011 UART for the serial console. -->
+    <serial type='pty'>
+      <target type='system-serial' port='0'>
+        <model name='pl011'/>
+      </target>
+      <alias name='serial0'/>
+    </serial>
+    <console type='pty'>
+      <target type='serial' port='0'/>
+      <alias name='serial0'/>
+    </console>
+    <disk device="disk" type="file" snapshot='external'>
+      <driver name="qemu" type="qcow2"></driver>
+      <source file="{{.DiskImagePath}}"></source>
+      <target bus="virtio" dev="vda"></target>
+    </disk>
+    {{.CloudInitCDRom}}
+    <!-- Let libvirt assign the PCIe address (the q35 fixed slot does not apply). -->
+    <rng model='virtio'>
+      <backend model='random'>/dev/urandom</backend>
+      <alias name='rng0'/>
+    </rng>
+    {{.TPMConfig}}
+  </devices>
+  <qemu:commandline>
+    <qemu:arg value='-netdev'/>
+    <qemu:arg value='user,id=n0,hostfwd=tcp::{{.Port}}-:22'/>
+    <qemu:arg value='-device' />
+    <!-- Pin the NIC to a high PCIe slot: this device is added via raw qemu args
+         (outside libvirt's PCI manager), so without an explicit addr QEMU grabs
+         slot 0x1 and collides with a libvirt-auto-added pcie-root-port. -->
+    <qemu:arg value='virtio-net-pci,netdev=n0,bus=pcie.0,addr=0x10' />
+    {{.SMBios}}
+  </qemu:commandline>
+</domain>
